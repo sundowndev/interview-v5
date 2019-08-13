@@ -1,6 +1,34 @@
-node_modules/
-coverage/
-.vscode/
+bower_components
+node_modules
+coverage
+.vscode
 build
 dist
+lib-cov
 *.log
+*.seed
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+*.swp
+
+pids
+logs
+results
+tmp
+
+# API keys and secrets
+.env
+
+# Editors
+.idea
+*.iml
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# ignore yarn.lock
+yarn.lock
