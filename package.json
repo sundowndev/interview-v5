@@ -1,0 +1,36 @@
+{
+  "name": "inteview-v5",
+  "private": true,
+  "scripts": {
+    "start": "npm run lint && npm run build:clean && npm run test",
+    "lint": "tslint --project tsconfig.json 'packages/*/src/*.ts' -e '**/*.d.ts'",
+    "bootstrap": "lerna bootstrap --hoist",
+    "build": "lerna run build",
+    "build:clean": "rm -rf ./packages/*/build ./packages/*/coverage && npm run build",
+    "clean": "lerna run clean",
+    "clean:all": "rm -rf ./node_modules ./packages/*/node_modules ./packages/*/coverage ./packages/*/build",
+    "test": "NODE_ENV=test jest --config jest.config.js --useStderr --forceExit --detectOpenHandles --coverage false",
+    "test:coverage": "npm test -- --coverage"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^8.1.0",
+    "@commitlint/config-conventional": "^8.1.0",
+    "@types/jest": "^24.0.17",
+    "husky": "^3.0.3",
+    "jest": "^24.8.0",
+    "lerna": "^3.16.4",
+    "ts-jest": "^24.0.2",
+    "tslint": "^5.18.0",
+    "typescript": "^3.5.3"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "jest-extended"
+    ]
+  }
+}

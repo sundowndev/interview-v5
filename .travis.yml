@@ -1,0 +1,35 @@
+language: node_js
+dist: trusty
+os: linux
+
+# services:
+#   - docker
+
+node_js:
+  - '8'
+  - '10'
+  - '11'
+
+stages:
+  - lint
+  - build
+  - test
+
+before_script:
+  - set -o pipefail
+  - npm install
+  - npm run bootstrap
+
+jobs:
+  include:
+    - stage: lint
+      script: npm run lint
+
+    - stage: build
+      script: npm run build:clean
+
+    - stage: test
+      script:
+        - npm install codecov -g
+        - npm run test:coverage
+        - codecov -f coverage/*.json
