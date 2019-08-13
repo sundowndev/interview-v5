@@ -64,4 +64,4 @@ See [Travis dashboard](https://circleci.com/gh/sundowndev/interview-v5/tree/mast
 - husky
 - commitlint
 
-Husky and Commitlint provide additional convention for commits.
+Husky and Commitlint provide additional formatting for commits.
