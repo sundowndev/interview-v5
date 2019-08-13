@@ -13,6 +13,14 @@ npm run build # Build applications
 npm run test:coverage # Run tests and collect coverage from files
 ```
 
+Run everything in containers :
+
+```
+docker-compose -f ./support/docker/docker-compose.test.yml up -d --build
+# Or...
+docker-compose -f ./support/docker/docker-compose.yml up -d --build
+```
+
 ## Overview
 
 This application is made of two applications : client and server side. Both are running using Typescript, and webpack
