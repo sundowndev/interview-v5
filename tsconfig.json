@@ -13,6 +13,7 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
 
     /* Module Resolution Options */
     "moduleResolution": "node",
