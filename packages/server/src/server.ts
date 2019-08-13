@@ -1,3 +1,4 @@
+// tslint:disable:no-console
 import errorHandler from 'errorhandler';
 
 import app from './app';
