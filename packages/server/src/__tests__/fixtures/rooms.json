@@ -6,9 +6,11 @@
       "capacity": 5,
       "equipements": [
         {
+          "uuid": "tv",
           "name": "TV"
         },
         {
+          "uuid": "retro",
           "name": "Retro Projecteur"
         }
       ],
@@ -19,11 +21,7 @@
       "name": "Salle #2",
       "description": "Salle #2",
       "capacity": 10,
-      "equipements": [
-        {
-          "name": "Retro Projecteur"
-        }
-      ],
+      "equipements": [{ "uuid": "retro", "name": "Retro Projecteur" }],
       "createdAt": "2016-12-07T12:39:55.384Z",
       "updatedAt": "2016-12-07T13:33:37.184Z"
     },
@@ -40,12 +38,8 @@
       "description": "Salle de ouf",
       "capacity": 10,
       "equipements": [
-        {
-          "name": "TV"
-        },
-        {
-          "name": "Retro Projecteur"
-        }
+        { "uuid": "tv", "name": "TV" },
+        { "uuid": "retro", "name": "Retro Projecteur" }
       ],
       "createdAt": "2016-12-09T16:45:34.419Z",
       "updatedAt": "2016-12-09T16:45:34.419Z"
@@ -55,12 +49,8 @@
       "description": "Salle nulle",
       "capacity": 26,
       "equipements": [
-        {
-          "name": "TV"
-        },
-        {
-          "name": "Retro Projecteur"
-        }
+        { "uuid": "tv", "name": "TV" },
+        { "uuid": "retro", "name": "Retro Projecteur" }
       ],
       "createdAt": "2016-12-09T16:45:49.096Z",
       "updatedAt": "2016-12-09T16:45:49.096Z"

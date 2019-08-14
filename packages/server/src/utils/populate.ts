@@ -1,7 +1,8 @@
+import { getMongoManager, MongoEntityManager } from 'typeorm';
 import fixtures from '../__tests__/fixtures/rooms.json';
 import { Room } from '../entity/Room';
 
-const createRooms = async () => {
+const createRooms = async (manager: MongoEntityManager) => {
   for (const fixture of fixtures.rooms) {
     const room = new Room();
 
@@ -10,10 +11,14 @@ const createRooms = async () => {
     room.capacity = fixture.capacity;
     room.equipements = fixture.equipements;
 
-    await room.save();
+    await manager.save(room);
   }
 };
 
 export default async () => {
-  await createRooms();
+  const manager = getMongoManager();
+
+  await manager.deleteMany(Room, {});
+
+  await createRooms(manager);
 };

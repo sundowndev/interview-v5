@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "start": "npm run lint && npm run build:clean && npm run test",
-    "lint": "tslint --project tsconfig.json 'packages/*/src/*.ts' -e '**/*.d.ts'",
+    "lint": "tslint --project tsconfig.json 'packages/*/src/**/*.ts' -e '**/*.d.ts'",
     "bootstrap": "lerna bootstrap",
     "build": "lerna run build",
     "build:clean": "rm -rf ./packages/*/build ./packages/*/coverage && npm run build",

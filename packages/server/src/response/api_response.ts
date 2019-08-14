@@ -1,4 +1,4 @@
-import {  Response, Request } from 'express';
+import { Request, Response } from 'express';
 
 export default function(req: Request, res: Response, next: any) {
   if (!res.finished) {
@@ -18,8 +18,11 @@ export default function(req: Request, res: Response, next: any) {
       }
 
       if (req.app.locals.return) {
-        if (Array.isArray(req.app.locals.return)) { json.items = req.app.locals.return; }
-        else { json.item = req.app.locals.return; }
+        if (Array.isArray(req.app.locals.return)) {
+          json.items = req.app.locals.return;
+        } else {
+          json.item = req.app.locals.return;
+        }
       }
 
       res.status(req.app.locals.status || 200);

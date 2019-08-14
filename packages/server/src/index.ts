@@ -79,6 +79,7 @@ async function main() {
       logger.warn('Press CTRL-C to stop\n');
     });
 
+    // Populate database
     return await populate();
   } catch (error) {
     return logger.error(error);
