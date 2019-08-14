@@ -13,10 +13,11 @@ import { createConnection } from 'typeorm';
 import api_response_error from './response/api_error_response';
 import api_response from './response/api_response';
 import logger from './utils/logger';
+import populate from './utils/populate';
 
 // Routes
+import bookingsRoutes from './routes/bookings';
 import roomsRoutes from './routes/rooms';
-import populate from './utils/populate';
 
 // Create Express server
 const app = express();
@@ -42,6 +43,7 @@ app.use(morgan('[:method] :url :status - :response-time ms'));
  * Registering routes
  */
 app.use('/rooms', roomsRoutes);
+app.use('/bookings', bookingsRoutes);
 
 /**
  * Response
@@ -56,7 +58,7 @@ app.use(errorHandler());
 
 async function main() {
   try {
-    await createConnection({
+    const connection = await createConnection({
       type: 'mongodb',
       host: '127.0.0.1',
       port: 27017,
@@ -64,7 +66,7 @@ async function main() {
       password: '',
       database: 'interview-v5',
       entities: [__dirname + '/entity/*.js'],
-      synchronize: true,
+      synchronize: false,
       logging: false,
       useNewUrlParser: true,
     });
@@ -80,7 +82,7 @@ async function main() {
     });
 
     // Populate database
-    return await populate();
+    return await populate(connection);
   } catch (error) {
     return logger.error(error);
   }

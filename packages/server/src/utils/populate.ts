@@ -1,24 +1,47 @@
-import { getMongoManager, MongoEntityManager } from 'typeorm';
+import { Connection, getMongoManager, MongoEntityManager } from 'typeorm';
 import fixtures from '../__tests__/fixtures/rooms.json';
+import { Booking } from '../entity/Booking.js';
 import { Room } from '../entity/Room';
 
-const createRooms = async (manager: MongoEntityManager) => {
-  for (const fixture of fixtures.rooms) {
-    const room = new Room();
+const rooms: Room[] = [];
 
-    room.name = fixture.name;
-    room.description = fixture.description;
-    room.capacity = fixture.capacity;
-    room.equipements = fixture.equipements;
+const createRooms = async (manager: MongoEntityManager, items: Room[]) => {
+  for (const fixture of items) {
+    const object = new Room();
 
-    await manager.save(room);
+    object.name = fixture.name;
+    object.description = fixture.description;
+    object.capacity = fixture.capacity;
+    object.equipements = fixture.equipements;
+
+    await manager.save(object);
+
+    rooms.push(object);
   }
 };
 
-export default async () => {
+const createBookings = async (
+  manager: MongoEntityManager,
+  items: Booking[],
+) => {
+  for (const fixture of items) {
+    const object = new Booking();
+
+    object.room = rooms[0].id as any;
+    object.startingAt = new Date(fixture.startingAt);
+    object.finishingAt = new Date(fixture.finishingAt);
+
+    await manager.save(object);
+  }
+};
+
+export default async (connection: Connection) => {
   const manager = getMongoManager();
 
-  await manager.deleteMany(Room, {});
+  // Drop database
+  await connection.dropDatabase();
 
-  await createRooms(manager);
+  // Create rooms from fixture file
+  await createRooms(manager, fixtures.rooms as any);
+  await createBookings(manager, fixtures.bookings as any);
 };

@@ -14,3 +14,7 @@ export const formatResponse = (res: string) => {
 export const roomNotFound = () => {
   return { status: 404, message: 'Room not found.' };
 };
+
+export const alreadyBooked = () => {
+  return { status: 403, message: 'That room is not available at that time.' };
+};
