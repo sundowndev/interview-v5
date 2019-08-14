@@ -11,21 +11,19 @@ export const getRooms = async (req: Request, _: Response, next: any) => {
   try {
     const query: any = { where: {}, order: {} };
 
-    if (req.query.date) {
-      Object.assign(query.where, {});
-    }
-
+    // Capacity parameter
     if (req.query.cap) {
       Object.assign(query.where, {
         capacity: { $gte: parseInt(req.query.cap, 10) },
       });
     }
 
+    // Equipement parameter
     if (req.query.eq) {
       const allStmt = [];
 
       for (const equipement of req.query.eq.split(',')) {
-        allStmt.push({ $elemMatch: { uuid: equipement } });
+        allStmt.push({ $elemMatch: { uid: equipement } });
       }
 
       Object.assign(query.where, {
@@ -35,8 +33,6 @@ export const getRooms = async (req: Request, _: Response, next: any) => {
       });
     }
 
-    console.log(query.where);
-
     query.order = {
       createdAt: 'DESC',
       capacity: 'DESC',
@@ -45,6 +41,18 @@ export const getRooms = async (req: Request, _: Response, next: any) => {
     query.take = req.app.locals.limit ? req.app.locals.limit : undefined;
 
     const documents = await getMongoRepository(Room).find(query);
+
+    // TODO: get bookings of rooms
+    // const documents = await getMongoRepository(Room).aggregate([
+    //   {
+    //     $lookup: {
+    //       from: 'room',
+    //       localField: 'id',
+    //       foreignField: 'room',
+    //       as: 'booking',
+    //     },
+    //   },
+    // ]);
 
     req.app.locals.results = documents.length;
     req.app.locals.return = documents;

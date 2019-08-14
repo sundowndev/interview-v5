@@ -21,7 +21,7 @@ export class Room {
   public capacity!: number;
 
   @Column()
-  public equipements!: any[];
+  public equipements!: Array<{ uid: string; name: string }>;
 
   @Column()
   @IsDate()
