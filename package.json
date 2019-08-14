@@ -10,12 +10,14 @@
     "clean": "lerna run clean",
     "clean:all": "rm -rf ./node_modules ./packages/*/node_modules ./packages/*/coverage ./packages/*/build",
     "test": "NODE_ENV=test jest --config jest.config.js --useStderr --forceExit --detectOpenHandles --coverage false",
-    "test:coverage": "npm test -- --coverage"
+    "test:coverage": "npm test -- --coverage",
+    "docs:server": "apidoc -i packages/server/src/routes -o ./docs/api -f '.*\\.ts$'"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.1.0",
     "@commitlint/config-conventional": "^8.1.0",
     "@types/jest": "^24.0.17",
+    "apidoc": "^0.17.7",
     "husky": "^3.0.3",
     "jest": "^24.8.0",
     "lerna": "^3.16.4",
