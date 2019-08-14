@@ -1,16 +1,17 @@
 {
   "rooms": [
     {
+      "_id": "5d5442dd277dd25a5ed648ac",
       "name": "Salle #1",
       "description": "Salle #1",
       "capacity": 5,
       "equipements": [
         {
-          "uuid": "tv",
+          "uid": "tv",
           "name": "TV"
         },
         {
-          "uuid": "retro",
+          "uid": "retro",
           "name": "Retro Projecteur"
         }
       ],
@@ -18,14 +19,16 @@
       "updatedAt": "2016-12-08T17:31:39.489Z"
     },
     {
+      "_id": "5d5442dd277dd25a5ed648ac",
       "name": "Salle #2",
       "description": "Salle #2",
       "capacity": 10,
-      "equipements": [{ "uuid": "retro", "name": "Retro Projecteur" }],
+      "equipements": [{ "uid": "retro", "name": "Retro Projecteur" }],
       "createdAt": "2016-12-07T12:39:55.384Z",
       "updatedAt": "2016-12-07T13:33:37.184Z"
     },
     {
+      "_id": "5d5442dd277dd25a5ed648ac",
       "name": "Salle Okjsdkso",
       "description": "Salle Okjsdkso",
       "capacity": 11,
@@ -34,26 +37,44 @@
       "updatedAt": "2016-12-09T16:45:19.025Z"
     },
     {
+      "_id": "5d5442dd277dd25a5ed648ac",
       "name": "Salle de ouf",
       "description": "Salle de ouf",
       "capacity": 10,
       "equipements": [
-        { "uuid": "tv", "name": "TV" },
-        { "uuid": "retro", "name": "Retro Projecteur" }
+        { "uid": "tv", "name": "TV" },
+        { "uid": "retro", "name": "Retro Projecteur" }
       ],
       "createdAt": "2016-12-09T16:45:34.419Z",
       "updatedAt": "2016-12-09T16:45:34.419Z"
     },
     {
+      "_id": "5d5442dd277dd25a5ed648ac",
       "name": "Salle nulle",
       "description": "Salle nulle",
       "capacity": 26,
       "equipements": [
-        { "uuid": "tv", "name": "TV" },
-        { "uuid": "retro", "name": "Retro Projecteur" }
+        { "uid": "tv", "name": "TV" },
+        { "uid": "retro", "name": "Retro Projecteur" }
       ],
       "createdAt": "2016-12-09T16:45:49.096Z",
       "updatedAt": "2016-12-09T16:45:49.096Z"
+    }
+  ],
+  "bookings": [
+    {
+      "room": "5d5442dd277dd25a5ed648ac",
+      "startingAt": "2019-08-14T16:30:30.078+00:00",
+      "finishingAt": "2019-08-14T17:30:30.078+00:00",
+      "createdAt": "2016-12-07T12:39:29.812Z",
+      "updatedAt": "2016-12-08T17:31:39.489Z"
+    },
+    {
+      "room": "5d5442dd277dd25a5ed648ac",
+      "startingAt": "2019-08-14T17:32:30.078+00:00",
+      "finishingAt": "2019-08-14T18:00:30.078+00:00",
+      "createdAt": "2016-12-07T12:39:29.812Z",
+      "updatedAt": "2016-12-08T17:31:39.489Z"
     }
   ]
 }
