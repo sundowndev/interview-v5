@@ -7,7 +7,7 @@ const router: Router = express.Router();
  * @api {get} /bookings/:roomId Book a room
  * @apiName GetRooms
  * @apiGroup Rooms
- * 
+ *
  * @apiParam {Number} roomId Id of the room to book
  *
  * @apiSuccess {Boolean} success Request status
