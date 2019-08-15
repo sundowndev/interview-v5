@@ -4,7 +4,7 @@
   "scripts": {
     "start": "npm run lint && npm run build:clean && npm run test",
     "lint": "tslint --project tsconfig.json 'packages/*/src/**/*.ts' -e '**/*.d.ts'",
-    "bootstrap": "lerna bootstrap",
+    "bootstrap": "lerna bootstrap --hoist",
     "build": "lerna run build",
     "build:clean": "rm -rf ./packages/*/build ./packages/*/coverage && npm run build",
     "clean": "lerna run clean",
