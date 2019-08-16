@@ -12,16 +12,16 @@ export const postBooking = async (req: Request, _: Response, next: any) => {
   try {
     const manager = getMongoManager();
 
-    const book = {
+    const bookInfo = {
       roomId: req.params.roomId,
       startingAt: req.body.startingAt,
       finishingAt: req.body.finishingAt,
     };
 
-    const RoomEntity = await getMongoRepository(Room).findOne(book.roomId);
-
     // Check if room exists
-    if (!RoomEntity) {
+    const targetRoom = await getMongoRepository(Room).findOne(bookInfo.roomId);
+
+    if (!targetRoom) {
       return next(msg.roomNotFound());
     }
 
@@ -31,8 +31,8 @@ export const postBooking = async (req: Request, _: Response, next: any) => {
       relations: ['room'],
       where: {
         // room: { id: book.roomId.id },
-        startingAt: { $gte: new Date(book.startingAt) },
-        finishingAt: { $lte: new Date(book.finishingAt) },
+        startingAt: { $gte: new Date(bookInfo.startingAt) },
+        finishingAt: { $lte: new Date(bookInfo.finishingAt) },
       },
     });
 
@@ -41,9 +41,9 @@ export const postBooking = async (req: Request, _: Response, next: any) => {
     }
 
     const BookEntity = new Booking();
-    BookEntity.room = RoomEntity.id as any;
-    BookEntity.startingAt = new Date(book.startingAt);
-    BookEntity.finishingAt = new Date(book.finishingAt);
+    BookEntity.room = targetRoom.id as any;
+    BookEntity.startingAt = new Date(bookInfo.startingAt);
+    BookEntity.finishingAt = new Date(bookInfo.finishingAt);
 
     await manager.save(BookEntity);
 
