@@ -5,7 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 const HOST = '127.0.0.1';
-const PORT = 3000;
+const PORT = 8000;
 
 module.exports = {
   mode: process.env.NODE_ENV || 'production',
@@ -75,7 +75,7 @@ module.exports = {
   devServer: {
     clientLogLevel: 'warning',
     historyApiFallback: {
-      rewrites: [{ from: /.*/, to: 'index.html' }],
+      rewrites: [{ from: /.*/, to: 'public/index.html' }],
     },
     compress: true,
     host: HOST || '0.0.0.0',
