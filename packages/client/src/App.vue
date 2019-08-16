@@ -1,30 +1,21 @@
 <template>
   <div id="app" class="container main-content">
-    <transition name="fade" mode="out-in" :duration="300">
-      <router-view/>
-    </transition>
+    <router-view />
   </div>
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import Vue from 'vue';
 
 export default Vue.extend({
   data() {
     return {};
-  }
+  },
 });
 </script>
 
 
 <style>
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s ease;
-}
-.fade-enter, .fade-leave-active {
-  opacity: 0
-}
-
 /* Reset style */
 html,
 body,
@@ -146,13 +137,13 @@ q {
 
 blockquote:before,
 blockquote:after {
-  content: "";
+  content: '';
   content: none;
 }
 
 q:before,
 q:after {
-  content: "";
+  content: '';
   content: none;
 }
 
@@ -163,17 +154,17 @@ table {
 
 /* FONT PATHS */
 @font-face {
-  font-family: "Hack";
-  src: url("/fonts/hack-regular.woff2") format("woff2"),
-    url("/fonts/hack-regular.woff") format("woff");
+  font-family: 'Hack';
+  src: url('/fonts/hack-regular.woff2') format('woff2'),
+    url('/fonts/hack-regular.woff') format('woff');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "Hack";
-  src: url("/fonts/hack-bold.woff2") format("woff2"),
-    url("/fonts/hack-bold.woff") format("woff");
+  font-family: 'Hack';
+  src: url('/fonts/hack-bold.woff2') format('woff2'),
+    url('/fonts/hack-bold.woff') format('woff');
   font-weight: 700;
   font-style: normal;
 }
@@ -236,57 +227,6 @@ img {
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-}
-
-@media (min-width: 1280px) {
-  .bg-image {
-    background-size: cover;
-    background-repeat: no-repeat;
-    -webkit-filter: blur(3px);
-    filter: blur(3px);
-    background-size: 102%;
-    background-position: center;
-  }
-  .bg-overlay.transparent {
-    opacity: 0.9;
-  }
-  .menu-social {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: end;
-    -webkit-justify-content: flex-end;
-    -ms-flex-pack: end;
-    justify-content: flex-end;
-    padding-top: 50px;
-    width: 100%;
-  }
-  .menu-social .icon {
-    font-size: 20px;
-    color: #ffffff;
-    -webkit-transition: 0.25s;
-    transition: 0.25s;
-    margin-left: 25px;
-  }
-  .menu-social .icon:hover {
-    color: #ffc400;
-  }
-}
-
-@media (max-width: 900px) {
-  .container {
-    margin: 0 30px;
-  }
-  .container.main-content {
-    width: 92%;
-    min-height: 0;
-    margin-top: 50px;
-    margin-bottom: 50px;
-  }
-  .container.main-content .section {
-    width: 100%;
-  }
 }
 
 section {
