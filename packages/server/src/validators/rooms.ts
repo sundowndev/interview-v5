@@ -16,6 +16,37 @@ export const getRooms = [
     .withMessage('IS_EMPTY')
     .matches(/^([a-z]{1,})(,\s*[a-z]+)*$/)
     .withMessage('ID_MALFORMED'),
+  query('startingAt')
+    .optional()
+    .not()
+    .isEmpty()
+    .withMessage('IS_EMPTY')
+    .isISO8601()
+    .toDate()
+    .custom(v => new Date(v) >= new Date())
+    .withMessage('Select a date in the future, not the past.')
+    // .custom((v, { req }) =>
+    //   req.query.finishingAt
+    //     ? new Date(v) < new Date(req.query.finishingAt)
+    //     : true,
+    // )
+    // .withMessage('Starting date must be before finishing date.'),
+    .toDate(),
+  query('finishingAt')
+    .optional()
+    .not()
+    .isEmpty()
+    .withMessage('IS_EMPTY')
+    .isISO8601()
+    .custom(v => new Date(v) > new Date())
+    .withMessage('Select a date in the future, not the past.')
+    // .custom((v, { req }) =>
+    //   req.query.startingAt
+    //     ? new Date(v) > new Date(req.query.startingAt)
+    //     : true,
+    // )
+    // .withMessage('Finishing date must be after starting date.')
+    .toDate(),
 ];
 
 export const getRoom = [
