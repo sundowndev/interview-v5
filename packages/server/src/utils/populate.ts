@@ -1,4 +1,4 @@
-import { Connection, getMongoManager, MongoEntityManager } from 'typeorm';
+import { Connection, MongoEntityManager } from 'typeorm';
 import fixtures from '../__tests__/fixtures/rooms.json';
 import { Booking } from '../entity/Booking.js';
 import { Room } from '../entity/Room';
@@ -25,18 +25,20 @@ const createBookings = async (
   items: Booking[],
 ) => {
   for (const fixture of items) {
-    const object = new Booking();
+    const targetRoom = rooms[0];
 
-    object.room = rooms[0].id as any;
-    object.startingAt = new Date(fixture.startingAt);
-    object.finishingAt = new Date(fixture.finishingAt);
+    const booking = new Booking();
+    booking.startingAt = new Date(fixture.startingAt);
+    booking.finishingAt = new Date(fixture.finishingAt);
 
-    await manager.save(object);
+    targetRoom.bookings.push(booking);
+
+    await manager.save(targetRoom);
   }
 };
 
 export default async (connection: Connection) => {
-  const manager = getMongoManager();
+  const manager = connection.mongoManager;
 
   // Drop database
   await connection.dropDatabase();

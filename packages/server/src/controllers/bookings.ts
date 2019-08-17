@@ -5,13 +5,14 @@ import { Room } from '../entity/Room';
 import * as msg from '../errors/message_errors';
 
 /**
- * POST /booking/:roomId
+ * POST /bookings/:roomId
  * Book a room.
  */
 export const postBooking = async (req: Request, _: Response, next: any) => {
   try {
     const manager = getMongoManager();
 
+    // Gather request data
     const bookInfo = {
       roomId: req.params.roomId,
       startingAt: req.body.startingAt,
@@ -25,27 +26,46 @@ export const postBooking = async (req: Request, _: Response, next: any) => {
       return next(msg.roomNotFound());
     }
 
-    // TODO: add roomId in conflict check
-    // Check if that room hasn't been booked for that date
-    const conflictBookings = await getMongoRepository(Booking).find({
-      relations: ['room'],
-      where: {
-        // room: { id: book.roomId.id },
-        startingAt: { $gte: new Date(bookInfo.startingAt) },
-        finishingAt: { $lte: new Date(bookInfo.finishingAt) },
+    // Check if any booking exists for that room at the same dates
+    const conflictBookings = await getMongoRepository(Room).findOne(
+      targetRoom.id,
+      {
+        select: ['id', 'bookings'],
+        where: {
+          $or: [
+            {
+              bookings: {
+                $elemMatch: {
+                  startingAt: { $lte: new Date(bookInfo.startingAt) },
+                  finishingAt: { $gte: new Date(bookInfo.startingAt) },
+                },
+              },
+            },
+            {
+              bookings: {
+                $elemMatch: {
+                  startingAt: { $lte: new Date(bookInfo.finishingAt) },
+                  finishingAt: { $gte: new Date(bookInfo.finishingAt) },
+                },
+              },
+            },
+          ],
+        },
+        cache: true,
       },
-    });
+    );
 
-    if (conflictBookings.length > 0) {
+    if (conflictBookings) {
       return next(msg.alreadyBooked());
     }
 
     const BookEntity = new Booking();
-    BookEntity.room = targetRoom.id as any;
     BookEntity.startingAt = new Date(bookInfo.startingAt);
     BookEntity.finishingAt = new Date(bookInfo.finishingAt);
 
-    await manager.save(BookEntity);
+    targetRoom.bookings.push(BookEntity);
+
+    await manager.save(targetRoom);
 
     req.app.locals.return = BookEntity;
 

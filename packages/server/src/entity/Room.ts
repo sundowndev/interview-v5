@@ -1,5 +1,6 @@
 import { IsDate, IsInt, Length, Max, Min } from 'class-validator';
 import { Column, Entity, ObjectID, ObjectIdColumn } from 'typeorm';
+import { Booking } from './Booking';
 
 @Entity()
 export class Room {
@@ -21,7 +22,10 @@ export class Room {
   public capacity!: number;
 
   @Column()
-  public equipements!: Array<{ uid: string; name: string }>;
+  public equipements: Array<{ uid: string; name: string }>;
+
+  @Column(() => Booking)
+  public bookings!: Booking[];
 
   @Column()
   @IsDate()
@@ -32,6 +36,8 @@ export class Room {
   public updatedAt: Date;
 
   constructor() {
+    this.bookings = [];
+    this.equipements = [];
     this.createdAt = new Date();
     this.updatedAt = new Date();
   }
