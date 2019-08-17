@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { getMongoRepository } from 'typeorm';
 import { Room } from '../entity/Room';
-import * as msg from '../errors/message_errors';
+import * as msg from '../response/message_errors';
 
 /**
  * GET /rooms
@@ -30,6 +30,61 @@ export const getRooms = async (req: Request, _: Response, next: any) => {
         equipements: {
           $all: allStmt,
         },
+      });
+    }
+
+    if (req.query.startingAt || req.query.finishingAt) {
+      Object.assign(query.where, {
+        $nor: [
+          {
+            bookings: {
+              $elemMatch: {
+                startingAt: {
+                  $lte: req.query.startingAt
+                    ? new Date(req.query.startingAt)
+                    : new Date(),
+                },
+                finishingAt: {
+                  $gte: req.query.startingAt
+                    ? new Date(req.query.startingAt)
+                    : new Date(),
+                },
+              },
+            },
+          },
+          {
+            bookings: {
+              $elemMatch: {
+                startingAt: {
+                  $lte: req.query.finishingAt
+                    ? new Date(req.query.finishingAt)
+                    : new Date(),
+                },
+                finishingAt: {
+                  $gte: req.query.finishingAt
+                    ? new Date(req.query.finishingAt)
+                    : new Date(),
+                },
+              },
+            },
+          },
+          {
+            bookings: {
+              $elemMatch: {
+                startingAt: {
+                  $gte: req.query.startingAt
+                    ? new Date(req.query.startingAt)
+                    : new Date(),
+                },
+                finishingAt: {
+                  $lte: req.query.finishingAt
+                    ? new Date(req.query.finishingAt)
+                    : new Date(),
+                },
+              },
+            },
+          },
+        ],
       });
     }
 

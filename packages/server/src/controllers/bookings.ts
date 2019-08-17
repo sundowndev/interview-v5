@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { getMongoManager, getMongoRepository } from 'typeorm';
 import { Booking } from '../entity/Booking';
 import { Room } from '../entity/Room';
-import * as msg from '../errors/message_errors';
+import * as msg from '../response/message_errors';
 
 /**
  * POST /bookings/:roomId
@@ -46,6 +46,14 @@ export const postBooking = async (req: Request, _: Response, next: any) => {
                 $elemMatch: {
                   startingAt: { $lte: new Date(bookInfo.finishingAt) },
                   finishingAt: { $gte: new Date(bookInfo.finishingAt) },
+                },
+              },
+            },
+            {
+              bookings: {
+                $elemMatch: {
+                  startingAt: { $gte: new Date(bookInfo.startingAt) },
+                  finishingAt: { $lte: new Date(bookInfo.finishingAt) },
                 },
               },
             },
