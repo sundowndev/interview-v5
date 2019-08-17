@@ -12,6 +12,7 @@ export default function(error: any, req: Request, res: Response, next: any) {
       res.json({
         success: false,
         errorMessage: error.message || 'Unknown Error',
+        errors: Array.isArray(error.errors) ? error.errors : undefined,
       });
 
       logger.warn(`${req.method} - ${req.url} | ${error}`);

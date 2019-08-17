@@ -1,6 +1,9 @@
 import express, { Router } from 'express';
 import * as roomsController from '../controllers/rooms';
+import validationMiddleware from '../middlewares/validation';
 import { paginate } from '../utils/pagination';
+import { paginate as paginateValidator } from '../validators/pagination';
+import * as validators from '../validators/rooms';
 
 const router: Router = express.Router();
 
@@ -16,7 +19,15 @@ const router: Router = express.Router();
  * @apiSuccess {Integer} results  Number of results.
  * @apiSuccess {Array} items  Rooms.
  */
-router.route('/').get(paginate(20), roomsController.getRooms);
+router
+  .route('/')
+  .get(
+    validators.getRooms,
+    paginateValidator,
+    validationMiddleware,
+    paginate(20),
+    roomsController.getRooms,
+  );
 
 /**
  * @api {get} /rooms/:roomId Fetch one room
@@ -32,6 +43,8 @@ router.route('/').get(paginate(20), roomsController.getRooms);
  * @apiSuccess {Integer} results  Number of results.
  * @apiSuccess {Array} items  Rooms.
  */
-router.route('/:roomId').get(roomsController.getOneRoom);
+router
+  .route('/:roomId')
+  .get(validators.getRoom, validationMiddleware, roomsController.getOneRoom);
 
 export default router;
