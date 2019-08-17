@@ -30,5 +30,9 @@ export default function(req: Request, res: Response, next: any) {
     }
   }
 
+  ['status', 'return', 'results', 'opts_return'].forEach(
+    k => delete req.app.locals[k],
+  );
+
   return next();
 }
