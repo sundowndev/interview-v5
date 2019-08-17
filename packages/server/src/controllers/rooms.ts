@@ -42,20 +42,28 @@ export const getRooms = async (req: Request, _: Response, next: any) => {
 
     const documents = await getMongoRepository(Room).find(query);
 
-    // TODO: get bookings of rooms
-    // const documents = await getMongoRepository(Room).aggregate([
-    //   {
-    //     $lookup: {
-    //       from: 'room',
-    //       localField: 'id',
-    //       foreignField: 'room',
-    //       as: 'booking',
-    //     },
-    //   },
-    // ]);
-
     req.app.locals.results = documents.length;
     req.app.locals.return = documents;
+
+    return next();
+  } catch (e) {
+    return next(msg.errorApi(e));
+  }
+};
+
+/**
+ * GET /rooms/:roomId
+ * List of rooms.
+ */
+export const getOneRoom = async (req: Request, _: Response, next: any) => {
+  try {
+    const document = await getMongoRepository(Room).findOne(req.params.roomId);
+
+    if (!document) {
+      return msg.roomNotFound();
+    }
+
+    req.app.locals.return = document;
 
     return next();
   } catch (e) {
