@@ -1,5 +1,5 @@
 import { validationResult } from 'express-validator';
-import * as msg from '../errors/message_errors';
+import * as msg from '../response/message_errors';
 
 export default (req: Request, {}, next: any) => {
   const errors = validationResult(req);
