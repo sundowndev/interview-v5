@@ -81,8 +81,10 @@ async function main() {
       logger.warn('Press CTRL-C to stop\n');
     });
 
-    // Populate database
-    return await populate(connection);
+    // Populate database (if not production environment)
+    return process.env.NODE_ENV !== 'production'
+      ? await populate(connection)
+      : null;
   } catch (error) {
     return logger.error(error);
   }
