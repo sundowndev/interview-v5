@@ -69,6 +69,7 @@ async function main() {
       synchronize: false,
       logging: false,
       useNewUrlParser: true,
+      validateOptions: { useUnifiedTopology: true },
     });
 
     // ---------- SERVER ----------
