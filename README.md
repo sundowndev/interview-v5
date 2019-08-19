@@ -104,4 +104,4 @@ stages:
   - test
 ```
 
-See [Travis dashboard](https://circleci.com/gh/sundowndev/interview-v5/tree/master).
+See [Travis dashboard](https://travis-ci.org/sundowndev/interview-v5).
