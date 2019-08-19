@@ -14,7 +14,7 @@
         name="date"
         id="date"
         :min="new Date().toISOString().slice(0, 10)"
-        :value="new Date().toISOString().slice(0, 10)"
+        v-model="filters.startingAt"
       />
     </div>
 
@@ -95,100 +95,25 @@
 
     <hr />
 
-    <div v-for="room of rooms" v-bind:key="room.id">
-      <p>
-        {{ room.name }} - Capacity of {{ room.capacity }} people
-        <br />
-        <span v-for="eq of room.equipements" v-bind:key="eq.uid">
-          <i>{{ eq.name }},</i>
-        </span>
-      </p>
-      <button :click="selectRoom(room)">Select</button>
-    </div>
+    <RoomList :filters="filters" v-on:update:items="items = $event"></RoomList>
   </section>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import RoomList from '../components/roomList.vue';
 
 export default Vue.extend({
+  components: { RoomList },
   data() {
     return {
       selectedRoom: null,
-      rooms: [
-        {
-          id: '5d5442dd277dd25a5ed648ac',
-          name: 'Salle #1',
-          description: 'Salle #1',
-          capacity: 5,
-          equipements: [
-            {
-              uid: 'tv',
-              name: 'TV',
-            },
-            {
-              uid: 'retro',
-              name: 'Retro Projecteur',
-            },
-          ],
-          createdAt: '2016-12-07T12:39:29.812Z',
-          updatedAt: '2016-12-08T17:31:39.489Z',
-        },
-        {
-          id: '5d5442dd277dd25a5ed648ac',
-          name: 'Salle #1',
-          description: 'Salle #1',
-          capacity: 5,
-          equipements: [
-            {
-              uid: 'tv',
-              name: 'TV',
-            },
-            {
-              uid: 'retro',
-              name: 'Retro Projecteur',
-            },
-          ],
-          createdAt: '2016-12-07T12:39:29.812Z',
-          updatedAt: '2016-12-08T17:31:39.489Z',
-        },
-        {
-          id: '5d5442dd277dd25a5ed648ac',
-          name: 'Salle #1',
-          description: 'Salle #1',
-          capacity: 5,
-          equipements: [
-            {
-              uid: 'tv',
-              name: 'TV',
-            },
-            {
-              uid: 'retro',
-              name: 'Retro Projecteur',
-            },
-          ],
-          createdAt: '2016-12-07T12:39:29.812Z',
-          updatedAt: '2016-12-08T17:31:39.489Z',
-        },
-      ],
+      filters: { startingAt: new Date(), capacity: 5, eq: ['tv', 'retro'] },
     };
   },
-  methods: {
-    selectRoom(room: any) {
-      this.selectedRoom = room;
-    },
-    // getRooms(equipements = null, capacity: number = 0) {
-    //   const e = { equipements, capacity };
-    // },
-  },
+  methods: {},
 });
 </script>
 
 <style>
-p span {
-  color: rgb(145, 145, 145);
-}
-i {
-  font-style: italic;
-}
 </style>
