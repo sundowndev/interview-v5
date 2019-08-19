@@ -1,11 +1,10 @@
-export default {
-  email: 'raphael@crvx.fr',
-  links: {
-    social: {
-      linkedin: 'https://www.linkedin.com/in/error-page-not-found/',
-      twitter: 'https://twitter.com/sundowndev',
-      medium: 'https://medium.com/@SundownDEV',
-      github: 'https://github.com/sundowndev',
-    },
-  },
+const config = {
+  HOST: process.env.HOST ? process.env.HOST : 'http://localhost',
+  API_PORT: process.env.API_PORT ? process.env.API_PORT : '3000',
 };
+
+export const getApiUrl = () => {
+  return `${config.HOST}:${config.API_PORT}`;
+};
+
+export default config;
