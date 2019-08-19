@@ -13,7 +13,6 @@
     "debug": "npm run build && npm run serve:debug"
   },
   "dependencies": {
-    "bcrypt-nodejs": "^0.0.3",
     "body-parser": "^1.19.0",
     "class-validator": "^0.10.0",
     "compression": "^1.7.4",
