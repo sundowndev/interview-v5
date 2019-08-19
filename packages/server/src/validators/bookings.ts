@@ -16,6 +16,12 @@ export const postBooking = [
     .isEmpty()
     .withMessage('IS_EMPTY')
     .isISO8601()
+    .custom(v => new Date(v) > new Date())
+    .withMessage('Select a date in the future, not the past.')
+    .custom((v, { req }) =>
+      req.body ? new Date(v) < new Date(req.body.finishingAt) : true,
+    )
+    .withMessage('Starting date must be before starting date.')
     .toDate(),
   body('finishingAt')
     .exists()
@@ -24,5 +30,11 @@ export const postBooking = [
     .isEmpty()
     .withMessage('IS_EMPTY')
     .isISO8601()
+    .custom(v => new Date(v) > new Date())
+    .withMessage('Select a date in the future, not the past.')
+    .custom((v, { req }) =>
+      req.body ? new Date(v) > new Date(req.body.startingAt) : true,
+    )
+    .withMessage('Finishing date must be after starting date.')
     .toDate(),
 ];
