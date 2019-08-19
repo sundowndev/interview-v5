@@ -13,7 +13,7 @@ npm run build # Build applications
 npm run test:coverage # Run tests and collect coverage from files
 ```
 
-Run everything in containers :
+Run everything inside containers :
 
 ```
 docker-compose -f ./support/docker/docker-compose.test.yml up -d --build
@@ -23,26 +23,66 @@ docker-compose -f ./support/docker/docker-compose.yml up -d --build
 
 ## Overview
 
-This application is made of two applications : client and server side. Both are running using Typescript, and webpack
+This application is made of two applications : client and server side. Both were built with Typescript.
+
+```shell
+$ tree . -d -I 'node_modules'  
+.
+├── docs
+│   └── api
+├── packages
+│   ├── client
+│   │   ├── public
+│   │   └── src
+│   │       ├── components
+│   │       ├── static
+│   │       ├── __tests__
+│   │       └── views
+│   └── server
+│       └── src
+│           ├── controllers
+│           ├── entity
+│           ├── middlewares
+│           ├── response
+│           ├── routes
+│           ├── __tests__
+│           │   └── fixtures
+│           ├── types
+│           ├── utils
+│           └── validators
+└── support
+    └── docker
+
+32 directories
+```
 
 ### API
 
 - Express
-- Sequelize
+- TypeORM
 - MongoDB
 
 #### Database
 
-MongoDB with schema modelization using Sequelize.
+MongoDB with schema modelization using TypeORM.
 
 ### Client
 
 - Vue.js
+- Vuex
+- Axios
+- Webpack
 
 ### Testing
 
 - jest
 - ts-jest
+
+### Linters & Git hooks
+
+- tslint (typescript linter)
+- husky (git hook)
+- commitlint (commit linter)
 
 ### Continuous Integration
 
@@ -65,11 +105,3 @@ stages:
 ```
 
 See [Travis dashboard](https://circleci.com/gh/sundowndev/interview-v5/tree/master).
-
-### Linters & Git hooks
-
-- tslint
-- husky
-- commitlint
-
-Husky and Commitlint provide additional formatting for commits.
