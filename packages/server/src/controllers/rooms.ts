@@ -115,7 +115,7 @@ export const getOneRoom = async (req: Request, _: Response, next: any) => {
     const document = await getMongoRepository(Room).findOne(req.params.roomId);
 
     if (!document) {
-      return msg.roomNotFound();
+      return next(msg.roomNotFound());
     }
 
     req.app.locals.return = document;
